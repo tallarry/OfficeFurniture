@@ -12,4 +12,6 @@ package com.office.furniture.controller;
 public interface ProductControllerInterface {
     
     public String getAllProducts();
+    
+    public String getProductsForCustomer(long customerId);
 }

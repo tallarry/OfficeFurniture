@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import com.google.gson.*;
 import javax.ws.rs.GET;
+import javax.ws.rs.PathParam;
 
 /**
  *
@@ -27,6 +28,15 @@ public class ProductController implements ProductControllerInterface {
     @Override
     public String getAllProducts() {
         String json = new Gson().toJson(productBean.getAll());
+        System.out.println(json);
+        return json;
+    }
+    
+    @GET
+    @Path("/customers/{customerId}")
+    @Override
+    public String getProductsForCustomer(@PathParam("customerId") long customerId) {
+        String json = new Gson().toJson(productBean.getAllByCustomer(customerId));
         System.out.println(json);
         return json;
     }

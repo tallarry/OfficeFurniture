@@ -27,7 +27,7 @@ public class Discount implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Integer val;
+    private Integer amount;
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
@@ -48,12 +48,12 @@ public class Discount implements Serializable {
         this.name = name;
     }
 
-    public Integer getVal() {
-        return val;
+    public Integer getAmount() {
+        return amount;
     }
 
-    public void setVal(Integer val) {
-        this.val = val;
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public Customer getCustomer() {

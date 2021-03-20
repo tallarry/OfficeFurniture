@@ -5,14 +5,11 @@
  */
 package com.office.furniture.ejb;
 
-import com.office.furniture.DTO.ProductDTO;
-import java.util.List;
-
 /**
  *
  * @author Silvan
  */
-public interface ProductBeanInterface {
-    public List<ProductDTO> getAll();
-    public List<ProductDTO> getAllByCustomer(long customerIds);
+public interface CustomerBeanInterface {
+
+    public Integer getDiscountPercent(long customerId);
 }
