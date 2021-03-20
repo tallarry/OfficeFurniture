@@ -5,13 +5,15 @@
  */
 package com.office.furniture.controller;
 
+import javax.ws.rs.core.Response;
+
 /**
  *
  * @author Silvan
  */
 public interface ProductControllerInterface {
     
-    public String getAllProducts();
+    public Response getAllProducts();
     
-    public String getProductsForCustomer(long customerId);
+    public Response getProductsForCustomer(long customerId, String authString);
 }

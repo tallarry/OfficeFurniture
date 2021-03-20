@@ -12,4 +12,6 @@ package com.office.furniture.ejb;
 public interface CustomerBeanInterface {
 
     public Integer getDiscountPercent(long customerId);
+    
+    public boolean isCustomerAuthorized(long customerId, String authString);
 }

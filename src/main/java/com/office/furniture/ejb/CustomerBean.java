@@ -6,6 +6,8 @@
 package com.office.furniture.ejb;
 
 import com.office.furniture.model.Customer;
+import java.util.Base64;
+import java.util.StringTokenizer;
 import java.util.logging.Logger;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
@@ -19,6 +21,7 @@ import javax.persistence.PersistenceContext;
 public class CustomerBean implements CustomerBeanInterface {
 
     private static final Logger LOG = Logger.getLogger(Customer.class.getName());
+    private static final String HEADER_PREFIX = "Basic ";
 
     @PersistenceContext
     private EntityManager em;
@@ -53,5 +56,29 @@ public class CustomerBean implements CustomerBeanInterface {
                 .map(d -> d.getAmount())
                 .reduce(discount, Integer::sum);
         return discount;
+    }
+
+    @Override
+    public boolean isCustomerAuthorized(long customerId, String authString) {
+        return isAuthorized(customerId, authString);
+    }
+    
+    private boolean isAuthorized(long customerId, String authString) {
+        
+        if(authString != null) {
+            String authToken = authString.replaceFirst(HEADER_PREFIX, "");
+            byte[] decodedBytes = Base64.getDecoder().decode(authToken);
+            String decodedToken = new String(decodedBytes);
+            StringTokenizer tokenizer = new StringTokenizer (decodedToken, ":");
+            String username = tokenizer.nextToken();
+            String password = tokenizer.nextToken();
+            
+            Customer customer = getCustomerById(customerId);
+            if(customer != null){
+                if(customer.getUsername().equals(username) && customer.getPassword().equals(password))
+                    return true;
+            }
+        }
+        return false;
     }
 }

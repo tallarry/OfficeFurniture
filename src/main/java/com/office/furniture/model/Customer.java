@@ -31,6 +31,7 @@ public class Customer implements Serializable {
     private String username;
     private String password;
     @OneToMany(
+        mappedBy = "customer",
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
