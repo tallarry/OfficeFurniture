@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.office.furniture.entity;
+package com.office.furniture.model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Silvan
  */
 @Entity
+@Table(name = "Product")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;

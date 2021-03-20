@@ -5,7 +5,7 @@
  */
 package com.office.furniture.DTO;
 
-import com.office.furniture.entity.Product;
+import com.office.furniture.model.Product;
 
 /**
  *

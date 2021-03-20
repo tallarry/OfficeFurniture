@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.office.furniture.entity;
+package com.office.furniture.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,18 +21,20 @@ import javax.persistence.Table;
  * @author Silvan
  */
 @Entity
-@Table(name = "Discount")
-public class Discount implements Serializable {
+@Table(name = "Customer")
+public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private Integer val;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Customer customer;
+    private String username;
+    private String password;
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<Discount> discounts = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -40,28 +44,36 @@ public class Discount implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Integer getVal() {
-        return val;
+    public String getPassword() {
+        return password;
     }
 
-    public void setVal(Integer val) {
-        this.val = val;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public List<Discount> getDiscounts() {
+        return discounts;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setDiscounts(List<Discount> discounts) {
+        this.discounts = discounts;
+    }
+    
+    public void addDiscount(Discount discount) {
+        discounts.add(discount);
+    }
+    
+    public void removeComment(Discount discount) {
+        discounts.remove(discount);
     }
 
     @Override
@@ -74,10 +86,10 @@ public class Discount implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Discount)) {
+        if (!(object instanceof Customer)) {
             return false;
         }
-        Discount other = (Discount) object;
+        Customer other = (Customer) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -86,7 +98,7 @@ public class Discount implements Serializable {
 
     @Override
     public String toString() {
-        return "com.office.furniture.entity.Discount[ id=" + id + " ]";
+        return "com.office.furniture.users.Customer[ id=" + id + " ]";
     }
     
 }

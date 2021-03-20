@@ -3,10 +3,10 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="my_persistence_unit" transaction-type="JTA">
     <jta-data-source>jdbc/sample</jta-data-source>
-    <class>com.office.furniture.entity.Users</class>
-    <class>com.office.furniture.entity.Customer</class>
-    <class>com.office.furniture.entity.Product</class>
-    <class>com.office.furniture.entity.Discount</class>
+    <class>com.office.furniture.model.Discount</class>
+    <class>com.office.furniture.model.Users</class>
+    <class>com.office.furniture.model.Customer</class>
+    <class>com.office.furniture.model.Product</class>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Furniture"/>

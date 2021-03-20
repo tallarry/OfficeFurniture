@@ -7,10 +7,10 @@ package com.office.furniture.controller;
 
 import com.office.furniture.ejb.ProductBean;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import com.google.gson.*;
+import javax.ws.rs.GET;
 
 /**
  *
@@ -18,12 +18,15 @@ import com.google.gson.*;
  */
 @Path("/products")
 @Produces("application/json")
-public class ProductController{
+public class ProductController implements ProductControllerInterface {
+    
     @Inject
     private ProductBean productBean;
+    
     @GET
+    @Override
     public String getAllProducts() {
-        String json = new Gson().toJson(productBean.getAllProducts());
+        String json = new Gson().toJson(productBean.getAll());
         System.out.println(json);
         return json;
     }
