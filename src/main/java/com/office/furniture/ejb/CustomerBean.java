@@ -5,6 +5,7 @@
  */
 package com.office.furniture.ejb;
 
+import com.office.furniture.DTO.CustomerDTO;
 import com.office.furniture.model.Customer;
 import java.util.Base64;
 import java.util.StringTokenizer;
@@ -34,6 +35,43 @@ public class CustomerBean implements CustomerBeanInterface {
         return calculateDiscount(customer);        
     }
 
+    @Override
+    public boolean isCustomerAuthorized(long customerId, String authString) {
+        LOG.info("isCustomerAuthorized");
+        
+        return isAuthorized(customerId, authString);
+    }
+    
+    @Override
+    public CustomerDTO login(String username, String password) {
+        LOG.info("login");
+        
+        Customer customer = getCustomerByUsername(username);
+        if(customer != null && password.equals(customer.getPassword()))
+            return CustomerDTO.From(customer);
+        return null;
+    }
+    
+    private boolean isAuthorized(long customerId, String authString) {
+        LOG.info("isAuthorized");
+        
+        if(authString != null) {
+            String authToken = authString.replaceFirst(HEADER_PREFIX, "");
+            byte[] decodedBytes = Base64.getDecoder().decode(authToken);
+            String decodedToken = new String(decodedBytes);
+            StringTokenizer tokenizer = new StringTokenizer (decodedToken, ":");
+            String username = tokenizer.nextToken();
+            String password = tokenizer.nextToken();
+            
+            Customer customer = getCustomerById(customerId);
+            if(customer != null){
+                if(customer.getUsername().equals(username) && customer.getPassword().equals(password))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
     private Customer getCustomerById(long customerId) {
         LOG.info("get customer by id");
         
@@ -58,27 +96,17 @@ public class CustomerBean implements CustomerBeanInterface {
         return discount;
     }
 
-    @Override
-    public boolean isCustomerAuthorized(long customerId, String authString) {
-        return isAuthorized(customerId, authString);
-    }
-    
-    private boolean isAuthorized(long customerId, String authString) {
-        
-        if(authString != null) {
-            String authToken = authString.replaceFirst(HEADER_PREFIX, "");
-            byte[] decodedBytes = Base64.getDecoder().decode(authToken);
-            String decodedToken = new String(decodedBytes);
-            StringTokenizer tokenizer = new StringTokenizer (decodedToken, ":");
-            String username = tokenizer.nextToken();
-            String password = tokenizer.nextToken();
-            
-            Customer customer = getCustomerById(customerId);
-            if(customer != null){
-                if(customer.getUsername().equals(username) && customer.getPassword().equals(password))
-                    return true;
-            }
+    private Customer getCustomerByUsername(String username) {
+        LOG.info("getCustomerByUsername");
+
+        try {
+            Customer customer = em
+                    .createQuery("SELECT c FROM Customer c WHERE c.username = ?1", Customer.class)
+                    .setParameter(1, username)
+                    .getSingleResult();
+            return customer;
+        } catch (Exception e) {
+            return null;
         }
-        return false;
     }
 }

@@ -5,6 +5,8 @@
  */
 package com.office.furniture.ejb;
 
+import com.office.furniture.DTO.CustomerDTO;
+
 /**
  *
  * @author Silvan
@@ -14,4 +16,6 @@ public interface CustomerBeanInterface {
     public Integer getDiscountPercent(long customerId);
     
     public boolean isCustomerAuthorized(long customerId, String authString);
+    
+    public CustomerDTO login(String username, String password);
 }
