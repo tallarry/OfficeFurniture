@@ -73,7 +73,7 @@ public class Customer implements Serializable {
         discounts.add(discount);
     }
     
-    public void removeComment(Discount discount) {
+    public void removeDiscount(Discount discount) {
         discounts.remove(discount);
     }
 
