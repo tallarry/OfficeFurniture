@@ -24,23 +24,23 @@ import javax.ws.rs.core.Response;
 @Path("/customers")
 @Produces("application/json")
 public class CustomerController implements CustomerControllerInterface {
-    
+
     @Inject
     private CustomerBean customerBean;
-    
+
     @POST
     @Path("/login")
     @Consumes("application/x-www-form-urlencoded")
     @Override
     public Response authenticateUser(@FormParam("username") String username,
-            @FormParam("password") String password){
+            @FormParam("password") String password) {
         CustomerDTO customerDto = customerBean.login(username, password);
-        if(customerDto != null) {
+        if (customerDto != null) {
             String json = new Gson().toJson(customerDto);
             System.out.println(json);
             return Response.ok(json, MediaType.APPLICATION_JSON).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).entity("null").build();
     }
-    
+
 }

@@ -84,5 +84,5 @@ public class Product implements Serializable {
     public String toString() {
         return "com.office.furniture.products.Product[ id=" + id + " ]";
     }
-    
+
 }

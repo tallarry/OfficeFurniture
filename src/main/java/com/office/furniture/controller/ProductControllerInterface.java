@@ -12,8 +12,8 @@ import javax.ws.rs.core.Response;
  * @author Silvan
  */
 public interface ProductControllerInterface {
-    
+
     public Response getAllProducts();
-    
+
     public Response getProductsForCustomer(long customerId, String authString);
 }

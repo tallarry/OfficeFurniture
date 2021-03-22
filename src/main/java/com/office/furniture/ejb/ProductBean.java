@@ -26,10 +26,10 @@ public class ProductBean implements ProductBeanInterface {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @Inject
     private CustomerBean customerBean;
-    
+
     @Override
     public List<ProductDTO> getAll() {
         LOG.info("get all products");
@@ -41,10 +41,10 @@ public class ProductBean implements ProductBeanInterface {
             return null;
         }
     }
-    
+
     public List<ProductDTO> getAllByCustomer(long customerId) {
         LOG.info("get all products with discount of customer");
-        
+
         try {
             List<Product> products = (List<Product>) em.createQuery("SELECT p FROM Product p").getResultList();
             Integer customerDiscountPercent = customerBean.getDiscountPercent(customerId);
@@ -56,23 +56,23 @@ public class ProductBean implements ProductBeanInterface {
 
     private List<ProductDTO> createDtosFromProducts(List<Product> products) {
         LOG.info("create DTOS from products");
-        
+
         List<ProductDTO> dtos = new ArrayList<>();
 
         products.forEach(product -> {
             dtos.add(ProductDTO.From(product));
         });
-    	return dtos;
+        return dtos;
     }
-    
+
     private List<ProductDTO> createDtosFromProducts(List<Product> products, Integer discountPercent) {
         LOG.info("create DTOS from products with discount");
-        
+
         List<ProductDTO> dtos = new ArrayList<>();
 
         products.forEach(product -> {
             dtos.add(ProductDTO.From(product, discountPercent));
         });
-    	return dtos;
+        return dtos;
     }
 }

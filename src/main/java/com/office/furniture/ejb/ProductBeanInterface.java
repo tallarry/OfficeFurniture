@@ -13,6 +13,8 @@ import java.util.List;
  * @author Silvan
  */
 public interface ProductBeanInterface {
+
     public List<ProductDTO> getAll();
+
     public List<ProductDTO> getAllByCustomer(long customerIds);
 }

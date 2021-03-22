@@ -29,9 +29,9 @@ public class Discount implements Serializable {
     private Long id;
     private String name;
     private Integer amount;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "CUSTOMER_ID")
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
     public Long getId() {
@@ -90,5 +90,5 @@ public class Discount implements Serializable {
     public String toString() {
         return "com.office.furniture.entity.Discount[ id=" + id + " ]";
     }
-    
+
 }

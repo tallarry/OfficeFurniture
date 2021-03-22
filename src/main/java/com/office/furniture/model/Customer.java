@@ -31,9 +31,9 @@ public class Customer implements Serializable {
     private String username;
     private String password;
     @OneToMany(
-        mappedBy = "customer",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
+            mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Discount> discounts = new ArrayList<>();
 
@@ -68,11 +68,11 @@ public class Customer implements Serializable {
     public void setDiscounts(List<Discount> discounts) {
         this.discounts = discounts;
     }
-    
+
     public void addDiscount(Discount discount) {
         discounts.add(discount);
     }
-    
+
     public void removeDiscount(Discount discount) {
         discounts.remove(discount);
     }
@@ -101,5 +101,5 @@ public class Customer implements Serializable {
     public String toString() {
         return "com.office.furniture.users.Customer[ id=" + id + " ]";
     }
-    
+
 }

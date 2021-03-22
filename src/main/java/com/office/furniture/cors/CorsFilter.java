@@ -24,6 +24,7 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
 
     /**
      * Method for ContainerRequestFilter.
+     *
      * @param request
      */
     @Override
@@ -39,8 +40,7 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
     }
 
     /**
-     * A preflight request is an OPTIONS request
-     * with an Origin header.
+     * A preflight request is an OPTIONS request with an Origin header.
      */
     private static boolean isPreflightRequest(ContainerRequestContext request) {
         return request.getHeaderString("Origin") != null
@@ -49,6 +49,7 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
 
     /**
      * Method for ContainerResponseFilter.
+     *
      * @param request
      * @param response
      * @throws java.io.IOException
@@ -68,13 +69,13 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
         if (isPreflightRequest(request)) {
             response.getHeaders().add("Access-Control-Allow-Credentials", "true");
             response.getHeaders().add("Access-Control-Allow-Methods",
-                "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+                    "GET, POST, PUT, DELETE, OPTIONS, HEAD");
             response.getHeaders().add("Access-Control-Allow-Headers",
-                // Whatever other non-standard/safe headers (see list above) 
-                // you want the client to be able to send to the server,
-                // put it in this list. And remove the ones you don't want.
-                "X-Requested-With, Authorization, " +
-                "Accept-Version, Content-MD5, CSRF-Token, Content-Type");
+                    // Whatever other non-standard/safe headers (see list above) 
+                    // you want the client to be able to send to the server,
+                    // put it in this list. And remove the ones you don't want.
+                    "X-Requested-With, Authorization, "
+                    + "Accept-Version, Content-MD5, CSRF-Token, Content-Type");
         }
 
         // Cross origin requests can be either simple requests

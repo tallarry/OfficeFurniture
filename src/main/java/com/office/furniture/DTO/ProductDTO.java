@@ -12,16 +12,18 @@ import com.office.furniture.model.Product;
  * @author Silvan
  */
 public class ProductDTO {
+
     private String name;
     private String description;
     private Integer standardPrice;
     private Integer discountPercent;
     private Integer finalPrice;
-    
+
     public static ProductDTO From(Product product) {
-        if (product == null)
+        if (product == null) {
             return null;
-        
+        }
+
         ProductDTO productDto = new ProductDTO();
         productDto.name = product.getName();
         productDto.description = product.getDescription();
@@ -30,11 +32,12 @@ public class ProductDTO {
         productDto.finalPrice = product.getStandardPrice();
         return productDto;
     }
-    
+
     public static ProductDTO From(Product product, Integer discountPercent) {
-        if (product == null)
+        if (product == null) {
             return null;
-        
+        }
+
         ProductDTO productDto = new ProductDTO();
         productDto.name = product.getName();
         productDto.description = product.getDescription();

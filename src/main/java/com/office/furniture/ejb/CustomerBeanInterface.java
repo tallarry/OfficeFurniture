@@ -14,8 +14,8 @@ import com.office.furniture.DTO.CustomerDTO;
 public interface CustomerBeanInterface {
 
     public Integer getDiscountPercent(long customerId);
-    
+
     public boolean isCustomerAuthorized(long customerId, String authString);
-    
+
     public CustomerDTO login(String username, String password);
 }

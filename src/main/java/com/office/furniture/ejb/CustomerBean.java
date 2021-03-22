@@ -26,55 +26,57 @@ public class CustomerBean implements CustomerBeanInterface {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @Override
     public Integer getDiscountPercent(long customerId) {
         LOG.info("get discount percent");
-        
+
         Customer customer = getCustomerById(customerId);
-        return calculateDiscount(customer);        
+        return calculateDiscount(customer);
     }
 
     @Override
     public boolean isCustomerAuthorized(long customerId, String authString) {
         LOG.info("isCustomerAuthorized");
-        
+
         return isAuthorized(customerId, authString);
     }
-    
+
     @Override
     public CustomerDTO login(String username, String password) {
         LOG.info("login");
-        
+
         Customer customer = getCustomerByUsername(username);
-        if(customer != null && password.equals(customer.getPassword()))
+        if (customer != null && password.equals(customer.getPassword())) {
             return CustomerDTO.From(customer);
+        }
         return null;
     }
-    
+
     private boolean isAuthorized(long customerId, String authString) {
         LOG.info("isAuthorized");
-        
-        if(authString != null) {
+
+        if (authString != null) {
             String authToken = authString.replaceFirst(HEADER_PREFIX, "");
             byte[] decodedBytes = Base64.getDecoder().decode(authToken);
             String decodedToken = new String(decodedBytes);
-            StringTokenizer tokenizer = new StringTokenizer (decodedToken, ":");
+            StringTokenizer tokenizer = new StringTokenizer(decodedToken, ":");
             String username = tokenizer.nextToken();
             String password = tokenizer.nextToken();
-            
+
             Customer customer = getCustomerById(customerId);
-            if(customer != null){
-                if(customer.getUsername().equals(username) && customer.getPassword().equals(password))
+            if (customer != null) {
+                if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
                     return true;
+                }
             }
         }
         return false;
     }
-    
+
     private Customer getCustomerById(long customerId) {
         LOG.info("get customer by id");
-        
+
         try {
             Customer customer = em.find(Customer.class, customerId);
             return customer;
@@ -85,7 +87,7 @@ public class CustomerBean implements CustomerBeanInterface {
 
     private Integer calculateDiscount(Customer customer) {
         LOG.info("calculate discount");
-        
+
         System.out.println("customer: " + customer.getUsername() + " discount size: " + customer.getDiscounts().size());
         Integer discount = 0;
         discount = customer

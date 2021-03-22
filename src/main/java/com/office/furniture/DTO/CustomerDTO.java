@@ -12,14 +12,16 @@ import com.office.furniture.model.Customer;
  * @author Silvan
  */
 public class CustomerDTO {
+
     private long id;
     private String username;
     private String password;
-    
-    public static CustomerDTO From(Customer customer){
-        if(customer == null)
+
+    public static CustomerDTO From(Customer customer) {
+        if (customer == null) {
             return null;
-        
+        }
+
         CustomerDTO c = new CustomerDTO();
         c.id = customer.getId();
         c.username = customer.getUsername();
@@ -38,5 +40,5 @@ public class CustomerDTO {
     public String getPassword() {
         return password;
     }
-    
+
 }

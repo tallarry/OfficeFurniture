@@ -12,5 +12,6 @@ import javax.ws.rs.core.Response;
  * @author Silvan
  */
 public interface CustomerControllerInterface {
+
     public Response authenticateUser(String username, String password);
 }

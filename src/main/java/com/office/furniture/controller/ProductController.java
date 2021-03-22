@@ -24,29 +24,29 @@ import javax.ws.rs.core.Response;
 @Path("/products")
 @Produces("application/json")
 public class ProductController implements ProductControllerInterface {
-    
+
     @Inject
     private ProductBean productBean;
-    
+
     @Inject
     private CustomerBean customerBean;
-    
+
     @GET
     @Override
     public Response getAllProducts() {
         String json = new Gson().toJson(productBean.getAll());
         System.out.println(json);
-        if(!"null".equals(json)) {
+        if (!"null".equals(json)) {
             return Response.ok(json, MediaType.APPLICATION_JSON).build();
         }
         return Response.status(Response.Status.NOT_FOUND).entity("null").build();
     }
-    
+
     @GET
     @Path("/customers/{customerId}")
     @Override
     public Response getProductsForCustomer(@PathParam("customerId") long customerId, @HeaderParam("authorization") String authString) {
-        if(!customerBean.isCustomerAuthorized(customerId, authString)) {
+        if (!customerBean.isCustomerAuthorized(customerId, authString)) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("null").build();
         }
         String json = new Gson().toJson(productBean.getAllByCustomer(customerId));
