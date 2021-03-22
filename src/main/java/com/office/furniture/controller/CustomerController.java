@@ -30,7 +30,7 @@ public class CustomerController implements CustomerControllerInterface {
     
     @POST
     @Path("/login")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Consumes("application/x-www-form-urlencoded")
     @Override
     public Response authenticateUser(@FormParam("username") String username,
             @FormParam("password") String password){
